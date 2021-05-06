@@ -54,7 +54,7 @@ function introDia () {
 sprites.onOverlap(SpriteKind.Player, SpriteKind.brave, function (sprite, otherSprite) {
     brave.setBounceOnWall(true)
     otherSprite.setVelocity(sprite.vx * -5, sprite.vy * -5)
-    brave.setFlag(SpriteFlag.ShowPhysics, true)
+    brave.setFlag(SpriteFlag.ShowPhysics, false)
 })
 sprites.onOverlap(SpriteKind.Enemy, SpriteKind.brave, function (sprite, otherSprite) {
     info.changeScoreBy(1)
@@ -91,7 +91,6 @@ assets.animation`myAnim`,
 true
 )
 brave = sprites.create(assets.image`brave`, SpriteKind.brave)
-brave.setFlag(SpriteFlag.GhostThroughSprites, false)
 controller.moveSprite(zix)
 brave.follow(zix)
 info.setScore(1)

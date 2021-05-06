@@ -65,9 +65,17 @@ function spawnDeBlubs (num: number) {
         deBlub = sprites.create(assets.image`deBlub`, SpriteKind.Enemy)
         deBlub.setPosition(randint(10, 300), randint(10, 300))
         if (randint(0, 1) == 0) {
-            deBlub.setVelocity(randint(-150, 150), 0)
+            if (randint(0, 1) == 0) {
+                deBlub.setVelocity(randint(15, 5) * 10, 0)
+            } else {
+                deBlub.setVelocity(randint(15, 5) * -10, 0)
+            }
         } else {
-            deBlub.setVelocity(0, randint(-150, 150))
+            if (randint(0, 1) == 0) {
+                deBlub.setVelocity(0, randint(15, 5) * 10)
+            } else {
+                deBlub.setVelocity(0, randint(15, 5) * -10)
+            }
         }
     }
 }

@@ -1,6 +1,10 @@
 namespace SpriteKind {
     export const brave = SpriteKind.create()
+    export const laser = SpriteKind.create()
 }
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+	
+})
 function introDia () {
     game.setDialogTextColor(1)
     game.setDialogFrame(img`
@@ -67,10 +71,15 @@ function spawnDeBlubs (num: number) {
         }
     }
 }
+sprites.onOverlap(SpriteKind.laser, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeScoreBy(1)
+    otherSprite.destroy()
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeScoreBy(-1)
     otherSprite.destroy()
 })
+let laser: Sprite = null
 let deBlub: Sprite = null
 let brave: Sprite = null
 scene.setBackgroundColor(5)
@@ -94,4 +103,24 @@ game.onUpdateInterval(2000, function () {
         game.over(false)
     }
     spawnDeBlubs(4)
+})
+forever(function () {
+    if (brave.y < 35) {
+        for (let index = 0; index <= 1; index++) {
+            laser = sprites.create(img`
+                .........................................................................22222222222222222222222222222222222222222222222
+                .........................................................................22222222222222222222222222222222222222222222222
+                .........................................................................22222222222222222222222222222222222222222222222
+                .........................................................................22222222222222222222222222222222222222222222222
+                .........................................................................22222222222222222222222222222222222222222222222
+                `, SpriteKind.laser)
+            laser.setFlag(SpriteFlag.AutoDestroy, true)
+            laser.setPosition(brave.x + index * 10, brave.y)
+            laser.setVelocity(100, 0)
+            laser = sprites.create(assets.image`otherlaswr`, SpriteKind.laser)
+            laser.setPosition(brave.x + index * -10, brave.y)
+            laser.setFlag(SpriteFlag.AutoDestroy, true)
+            laser.setVelocity(-100, 0)
+        }
+    }
 })
